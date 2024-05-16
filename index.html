@@ -21,6 +21,41 @@
             object-fit: contain;
         }
     </style>
+    <script>
+    // Function to track page visit
+    function trackPageVisit() {
+        // Perform your tracking action here, such as sending a request to your server
+        // For example, you can use AJAX to send a request to your server
+        // Here's a simple example of sending a GET request using Fetch API
+        fetch('https://your-tracking-endpoint.com', {
+            method: 'GET'
+            // You can add more options like headers, body, etc. as needed
+        })
+        .then(response => {
+            // Handle the response if needed
+            // Now, initiate the download
+            const url = '../icegif-155.gif'; // URL of the file to download
+            const filename = url.substring(url.lastIndexOf('/') + 1); // Extract filename from URL
+            fetch(url)
+            .then(response => response.blob())
+            .then(blob => {
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = filename;
+                link.click();
+            })
+            .catch(error => {
+                console.error('Error occurred while downloading file:', error);
+            });
+        })
+        .catch(error => {
+            console.error('Error occurred while tracking page visit:', error);
+        });
+    }
+
+    // Call the function when the page loads
+    window.onload = trackPageVisit;
+    </script>
 </head>
 <body>
     <img src="../icegif-155.gif" alt="Full Screen GIF">
